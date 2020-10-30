@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         val networkService = getNetworkService()
         GlobalScope.launch(Dispatchers.Main) {
             val result = withContext(Dispatchers.IO) { networkService.query() }
-            result.forEach { urlList.add(it.url) }
+            result.split("\n").forEach { urlList.add(it) }
             vp2.adapter = MyAdapter(this@MainActivity,urlList)
         }
     }
