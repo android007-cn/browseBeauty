@@ -1,5 +1,6 @@
 package cn.cxy.browsebeauty
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +19,7 @@ class BaseFragment(var index: Int) : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val imageView = ImageView(context)
+        imageView.setBackgroundColor(Color.parseColor("#000000"))
         mImageView = imageView
         val url = baseUrl + (index + 1) + suffix
         Glide.with(this).load(url).into(imageView)
