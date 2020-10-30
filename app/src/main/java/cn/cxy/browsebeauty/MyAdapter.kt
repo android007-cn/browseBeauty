@@ -8,7 +8,7 @@ class MyAdapter(
     var urlList: MutableList<String>
 ) :
     FragmentStateAdapter(fragmentActivity) {
-    override fun createFragment(position: Int) = FragmentFactory.getFragment(urlList[position])
+    override fun createFragment(position: Int) = BaseFragment(urlList[position])
 
-    override fun getItemCount() = Integer.MAX_VALUE
+    override fun getItemCount() = urlList.size
 }
