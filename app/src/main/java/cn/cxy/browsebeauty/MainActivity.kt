@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.scalars.ScalarsConverterFactory
 
 class MainActivity : AppCompatActivity() {
     var urlList = mutableListOf<String>()
@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         val retrofit = Retrofit.Builder()
             .client(okHttpClient)
             .baseUrl("https://gitee.com/")
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(ScalarsConverterFactory.create())
             .build()
 
         return retrofit.create(NetworkService::class.java)
