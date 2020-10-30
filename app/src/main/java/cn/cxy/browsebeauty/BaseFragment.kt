@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
+import com.github.chrisbanes.photoview.PhotoView
+
 
 class BaseFragment(var index: Int) : Fragment() {
     private var baseUrl = "https://gitee.com/cxyzy1/select-beauty/raw/master/images/image"
@@ -18,12 +20,11 @@ class BaseFragment(var index: Int) : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val imageView = ImageView(context)
+        val imageView = PhotoView(context)
         imageView.setBackgroundColor(Color.parseColor("#000000"))
         mImageView = imageView
         val url = baseUrl + (index + 1) + suffix
         Glide.with(this).load(url).into(imageView)
         return imageView
     }
-
 }
