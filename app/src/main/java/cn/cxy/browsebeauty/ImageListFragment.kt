@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
-import kotlinx.android.synthetic.main.activity_image.*
+import kotlinx.android.synthetic.main.fragment_image.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -22,7 +22,7 @@ class ImageListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.activity_image, container, false)
+        return inflater.inflate(R.layout.fragment_image, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
