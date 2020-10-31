@@ -1,4 +1,4 @@
-package cn.cxy.demo.bottomnavigationdemo
+package cn.cxy.browsebeauty
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -37,7 +37,12 @@ class ImageListFragment : Fragment() {
         GlobalScope.launch(Dispatchers.Main) {
             val result = withContext(Dispatchers.IO) { networkService.query() }
             result.split("\n").forEach { urlList.add(it) }
-            vp2.adapter = activity?.let { MyAdapter(it, urlList) }
+            vp2.adapter = activity?.let {
+                MyAdapter(
+                    it,
+                    urlList
+                )
+            }
         }
     }
 

@@ -1,4 +1,4 @@
-package cn.cxy.demo.bottomnavigationdemo
+package cn.cxy.browsebeauty
 
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter

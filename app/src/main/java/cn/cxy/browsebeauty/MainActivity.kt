@@ -1,4 +1,4 @@
-package cn.cxy.demo.bottomnavigationdemo
+package cn.cxy.browsebeauty
 
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
