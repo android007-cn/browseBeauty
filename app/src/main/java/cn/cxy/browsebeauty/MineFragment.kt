@@ -15,7 +15,7 @@ class MineFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val tv = TextView(context)
-        tv.text = "第二页"
+        tv.text = "我的"
         tv.gravity = Gravity.CENTER
         return tv
     }

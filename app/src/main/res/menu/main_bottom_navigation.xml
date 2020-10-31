@@ -5,13 +5,13 @@
         android:id="@+id/menu_message"
         android:enabled="true"
         android:icon="@mipmap/ic_message"
-        android:title="第一页"
+        android:title="美图"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/menu_contacts"
         android:enabled="true"
         android:icon="@mipmap/ic_contacts"
-        android:title="第二页"
+        android:title="我的"
         app:showAsAction="ifRoom" />
 
 </menu>
