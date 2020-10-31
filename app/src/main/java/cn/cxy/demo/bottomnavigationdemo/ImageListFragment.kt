@@ -1,9 +1,12 @@
-package cn.cxy.browsebeauty
+package cn.cxy.demo.bottomnavigationdemo
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_image.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -12,11 +15,18 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.scalars.ScalarsConverterFactory
 
-class MainActivity : AppCompatActivity() {
+class ImageListFragment : Fragment() {
     var urlList = mutableListOf<String>()
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.activity_image, container, false)
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         queryData()
         //设置上下滑动
         vp2.orientation = ViewPager2.ORIENTATION_VERTICAL
@@ -27,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         GlobalScope.launch(Dispatchers.Main) {
             val result = withContext(Dispatchers.IO) { networkService.query() }
             result.split("\n").forEach { urlList.add(it) }
-            vp2.adapter = MyAdapter(this@MainActivity, urlList)
+            vp2.adapter = activity?.let { MyAdapter(it, urlList) }
         }
     }
 

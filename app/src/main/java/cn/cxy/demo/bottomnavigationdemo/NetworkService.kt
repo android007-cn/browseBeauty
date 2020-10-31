@@ -1,4 +1,4 @@
-package cn.cxy.browsebeauty
+package cn.cxy.demo.bottomnavigationdemo
 
 import retrofit2.http.GET
 

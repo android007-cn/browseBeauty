@@ -1,4 +1,4 @@
-package cn.cxy.browsebeauty
+package cn.cxy.demo.bottomnavigationdemo
 
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -8,7 +8,7 @@ class MyAdapter(
     var urlList: MutableList<String>
 ) :
     FragmentStateAdapter(fragmentActivity) {
-    override fun createFragment(position: Int) = BaseFragment(urlList[position])
+    override fun createFragment(position: Int) = ImageFragment(urlList[position])
 
     override fun getItemCount() = urlList.size
 }
