@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
+import cn.cxy.browsebeauty.db.repository.ImageInfoRepository
 import kotlinx.android.synthetic.main.fragment_image.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -16,7 +17,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.scalars.ScalarsConverterFactory
 
 class ImageListFragment : Fragment() {
-    var urlList = mutableListOf<String>()
+    private var urlList = mutableListOf<String>()
+    private val imageInfoRepository = ImageInfoRepository()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -30,6 +32,16 @@ class ImageListFragment : Fragment() {
         queryData()
         //设置上下滑动
         vp2.orientation = ViewPager2.ORIENTATION_VERTICAL
+        setListeners()
+    }
+
+    private fun setListeners() {
+        favoriteIv.setOnClickListener {
+            ( vp2.currentItem as ImageFragment).test()
+            GlobalScope.launch {
+                imageInfoRepository.add("", "")
+            }
+        }
     }
 
     private fun queryData() {
