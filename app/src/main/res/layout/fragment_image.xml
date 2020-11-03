@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:button="@null"
-            android:drawableTop="@drawable/switch_selector" />
+            android:drawableTop="@drawable/favorite_selector" />
     </LinearLayout>
 
 </RelativeLayout>
