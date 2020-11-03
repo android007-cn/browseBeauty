@@ -17,11 +17,12 @@
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="100dp">
 
-        <ImageView
-            android:id="@+id/favoriteIv"
+        <CheckBox
+            android:id="@+id/favoriteIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_favorite" />
+            android:button="@null"
+            android:drawableTop="@drawable/switch_selector" />
     </LinearLayout>
 
 </RelativeLayout>

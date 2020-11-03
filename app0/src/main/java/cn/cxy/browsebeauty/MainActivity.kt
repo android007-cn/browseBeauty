@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun queryData() {
         val networkService = getNetworkService()
-        GlobalScope.launch(Dispatchers.Main) {
+        MainScope().launch(Dispatchers.Main) {
             val result = withContext(Dispatchers.IO) { networkService.query() }
             result.split("\n").forEach { urlList.add(it) }
             vp2.adapter = MyAdapter(this@MainActivity, urlList)

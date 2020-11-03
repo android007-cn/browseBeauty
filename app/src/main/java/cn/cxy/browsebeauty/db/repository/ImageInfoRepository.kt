@@ -13,16 +13,15 @@ class ImageInfoRepository : BaseRepository() {
         }
     }
 
-    suspend fun del(id: Int) {
-        withContext(Dispatchers.IO) {
-            val imageInfo = ImageInfo(id, "", "")
-            imageInfoDao.del(imageInfo)
-        }
-    }
-
     suspend fun list(): List<ImageInfo> {
         return withContext(Dispatchers.IO) {
             imageInfoDao.list()
+        }
+    }
+
+    suspend fun queryByUrl(url: String): ImageInfo? {
+        return withContext(Dispatchers.IO) {
+            return@withContext imageInfoDao.queryByUrl(url)
         }
     }
 
@@ -30,6 +29,19 @@ class ImageInfoRepository : BaseRepository() {
         return withContext(Dispatchers.IO) {
             val result = imageInfoDao.queryByUrl(url)
             return@withContext result != null
+        }
+    }
+
+    suspend fun del(id: Int) {
+        withContext(Dispatchers.IO) {
+            val imageInfo = ImageInfo(id, "", "")
+            imageInfoDao.del(imageInfo)
+        }
+    }
+
+    suspend fun del(url: String) {
+        withContext(Dispatchers.IO) {
+            imageInfoDao.deleteByUrl(url)
         }
     }
 }

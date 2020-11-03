@@ -22,4 +22,7 @@ interface ImageInfoDao {
 
     @Delete
     fun del(imageInfo: ImageInfo)
+
+    @Query("DELETE FROM ImageInfo where url=:url")
+    fun deleteByUrl(url: String)
 }

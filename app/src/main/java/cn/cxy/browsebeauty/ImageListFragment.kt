@@ -1,21 +1,17 @@
 package cn.cxy.browsebeauty
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import android.widget.CompoundButton
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import cn.cxy.browsebeauty.db.repository.ImageInfoRepository
+import cn.cxy.browsebeauty.utils.ImageUtil.deleteFile
 import cn.cxy.browsebeauty.utils.ImageUtil.saveBitmap
-import com.cxyzy.utils.ext.toast
 import kotlinx.android.synthetic.main.fragment_image.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.scalars.ScalarsConverterFactory
@@ -46,43 +42,53 @@ class ImageListFragment : Fragment() {
                 updateFavoriteIv(position)
             }
         })
-        favoriteIv.setOnClickListener {
-            favoriteIv.setColorFilter(Color.parseColor("#FF0000"))
-            val imageFragment = myAdapter?.getFragment(vp2.currentItem)
-            imageFragment?.let {
-                val image = it.getImage()
-                if (context != null && image != null) {
-                    val filePath = saveBitmap(context!!, image)
-                    GlobalScope.launch {
-                        imageInfoRepository.add(filePath, it.url)
+        favoriteIcon.setOnCheckedChangeListener(object : CompoundButton.OnCheckedChangeListener {
+            override fun onCheckedChanged(p0: CompoundButton?, isChecked: Boolean) {
+                val imageFragment = myAdapter?.getFragment(vp2.currentItem)
+                imageFragment?.let {
+                    if (isChecked) {
+                        addImageToFavorite(it)
+                    } else {
+                        delImageFromFavorite(it)
                     }
                 }
+            }
+        })
+    }
+
+    private fun delImageFromFavorite(it: ImageFragment) {
+        MainScope().launch {
+            val imageInfo = imageInfoRepository.queryByUrl(it.url)
+            imageInfo?.let {
+                deleteFile(it.path)
+                imageInfoRepository.del(it.url)
+            }
+        }
+    }
+
+    private fun addImageToFavorite(it: ImageFragment) {
+        val image = it.getImage()
+        if (context != null && image != null) {
+            MainScope().launch(Dispatchers.IO) {
+                val filePath = saveBitmap(context!!, image)
+                imageInfoRepository.add(filePath, it.url)
             }
         }
     }
 
     private fun updateFavoriteIv(position: Int) {
-        GlobalScope.launch {
-            val fragment = getFragment(position)
-            fragment?.let {
-                setFavoriteIvSelected(imageInfoRepository.exists(it.url))
+        getFragment(position)?.let {
+            MainScope().launch {
+                favoriteIcon.isChecked = imageInfoRepository.exists(it.url)
             }
         }
-    }
-
-    private fun setFavoriteIvSelected(isSelected: Boolean) {
-        var color = "#000000"
-        if (!isSelected) {
-            color = "#FF0000"
-        }
-        favoriteIv.setColorFilter(Color.parseColor(color))
     }
 
     private fun getFragment(position: Int) = myAdapter?.getFragment(position)
 
     private fun queryData() {
         val networkService = getNetworkService()
-        GlobalScope.launch(Dispatchers.Main) {
+        MainScope().launch(Dispatchers.Main) {
             val result = withContext(Dispatchers.IO) { networkService.query() }
             result.split("\n").forEach { urlList.add(it) }
             activity?.let {

@@ -24,7 +24,7 @@ object ImageUtil {
 //    }
 
     fun getNewFileName() = System.currentTimeMillis().toString() + ".png"
-    fun saveBitmap(context: Context, bitmap: Bitmap):String {
+    fun saveBitmap(context: Context, bitmap: Bitmap): String {
         val file = File(context.filesDir, getNewFileName())
         if (file.exists()) {
             file.delete()
@@ -38,5 +38,9 @@ object ImageUtil {
             e.message?.let { Log.e(tag, it) }
         }
         return file.canonicalPath
+    }
+
+    fun deleteFile(path: String) {
+        File(path).delete()
     }
 }
