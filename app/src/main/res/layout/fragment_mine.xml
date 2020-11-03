@@ -12,7 +12,7 @@
         <include layout="@layout/activity_wechat_name" />
 
 
-        <include layout="@layout/activity_favorite" />
+        <include layout="@layout/mine_part_favorite" />
 
     </LinearLayout>
 </ScrollView>

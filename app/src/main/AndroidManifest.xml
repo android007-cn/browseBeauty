@@ -20,6 +20,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".favorite.FavoriteActivity" />
+        <activity android:name=".ImageActivity" />
     </application>
 
 </manifest>

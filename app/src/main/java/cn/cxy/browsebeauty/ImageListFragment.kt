@@ -18,7 +18,6 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 
 class ImageListFragment : Fragment() {
     private var urlList = mutableListOf<String>()
-    private val imageInfoRepository = ImageInfoRepository()
     private var myAdapter: MyAdapter? = null
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,26 +41,24 @@ class ImageListFragment : Fragment() {
                 updateFavoriteIv(position)
             }
         })
-        favoriteIcon.setOnCheckedChangeListener(object : CompoundButton.OnCheckedChangeListener {
-            override fun onCheckedChanged(p0: CompoundButton?, isChecked: Boolean) {
-                val imageFragment = myAdapter?.getFragment(vp2.currentItem)
-                imageFragment?.let {
-                    if (isChecked) {
-                        addImageToFavorite(it)
-                    } else {
-                        delImageFromFavorite(it)
-                    }
+        favoriteIcon.setOnCheckedChangeListener { _, isChecked ->
+            val imageFragment = myAdapter?.getFragment(vp2.currentItem)
+            imageFragment?.let {
+                if (isChecked) {
+                    addImageToFavorite(it)
+                } else {
+                    delImageFromFavorite(it)
                 }
             }
-        })
+        }
     }
 
     private fun delImageFromFavorite(it: ImageFragment) {
         MainScope().launch {
-            val imageInfo = imageInfoRepository.queryByUrl(it.url)
+            val imageInfo = ImageInfoRepository.queryByUrl(it.url)
             imageInfo?.let {
                 deleteFile(it.path)
-                imageInfoRepository.del(it.url)
+                ImageInfoRepository.del(it.url)
             }
         }
     }
@@ -71,7 +68,7 @@ class ImageListFragment : Fragment() {
         if (context != null && image != null) {
             MainScope().launch(Dispatchers.IO) {
                 val filePath = saveBitmap(context!!, image)
-                imageInfoRepository.add(filePath, it.url)
+                ImageInfoRepository.add(filePath, it.url)
             }
         }
     }
@@ -79,7 +76,7 @@ class ImageListFragment : Fragment() {
     private fun updateFavoriteIv(position: Int) {
         getFragment(position)?.let {
             MainScope().launch {
-                favoriteIcon.isChecked = imageInfoRepository.exists(it.url)
+                favoriteIcon.isChecked = ImageInfoRepository.exists(it.url)
             }
         }
     }
