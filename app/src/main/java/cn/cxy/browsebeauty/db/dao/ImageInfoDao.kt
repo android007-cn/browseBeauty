@@ -1,6 +1,5 @@
 package cn.cxy.browsebeauty.db.dao
 
-import androidx.paging.DataSource
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -10,7 +9,10 @@ import cn.cxy.browsebeauty.db.bean.ImageInfo
 @Dao
 interface ImageInfoDao {
     @Query("SELECT * FROM ImageInfo")
-    fun getTaskList(): DataSource.Factory<Int, ImageInfo>
+    fun list(): List<ImageInfo>
+
+    @Query("SELECT * FROM ImageInfo where url=:url")
+    fun queryByUrl(url: String): ImageInfo?
 
     @Insert
     fun add(imageInfo: ImageInfo)
