@@ -13,6 +13,7 @@ import cn.cxy.browsebeauty.utils.ImageUtil
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_image.*
 import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class ImageActivity : AppCompatActivity() {
@@ -37,7 +38,7 @@ class ImageActivity : AppCompatActivity() {
         favoriteIcon.setOnCheckedChangeListener { _, isChecked ->
             imageInfo?.let {
                 delImageFromFavorite(it)
-                finish()
+//                finish()
             }
         }
     }

@@ -21,19 +21,15 @@ object ImageInfoRepository : BaseRepository() {
             val imageInfoList = imageInfoDao.list()
             (0..imageInfoList.size / FAVORITE_SIZE_OF_ROW).forEach { index1 ->
                 val tempList = mutableListOf<ImageInfo>()
-                if (index1 < imageInfoList.size / FAVORITE_SIZE_OF_ROW) {
-                    (0 until FAVORITE_SIZE_OF_ROW).forEach { index2 ->
-                        val imageInfo = imageInfoList[index1 * FAVORITE_SIZE_OF_ROW + index2]
-                        tempList.add(imageInfo)
-                    }
-                } else {
-                    (0 until imageInfoList.size - FAVORITE_SIZE_OF_ROW * index1).forEach { index2 ->
+                (0 until FAVORITE_SIZE_OF_ROW).forEach { index2 ->
+                    if (index1 * FAVORITE_SIZE_OF_ROW + index2 < imageInfoList.size) {
                         val imageInfo = imageInfoList[index1 * FAVORITE_SIZE_OF_ROW + index2]
                         tempList.add(imageInfo)
                     }
                 }
-
-                result.add(MultiImageInfo(tempList))
+                if (tempList.isNotEmpty()) {
+                    result.add(MultiImageInfo(tempList))
+                }
             }
             return@withContext result
         }
