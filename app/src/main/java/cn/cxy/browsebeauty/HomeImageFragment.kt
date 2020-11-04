@@ -14,7 +14,7 @@ import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.github.chrisbanes.photoview.PhotoView
 
-class ImageFragment(var url: String) : Fragment() {
+class HomeImageFragment(var url: String) : Fragment() {
     private lateinit var mImageView: ImageView
     private var mBitmap: Bitmap? = null
     override fun onCreateView(

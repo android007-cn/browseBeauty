@@ -1,0 +1,57 @@
+package cn.cxy.browsebeauty.favorite
+
+import android.app.Activity
+import android.graphics.Color
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.viewpager.widget.PagerAdapter
+import cn.cxy.browsebeauty.R
+import cn.cxy.browsebeauty.db.bean.ImageInfo
+import cn.cxy.browsebeauty.db.repository.ImageInfoRepository
+import cn.cxy.browsebeauty.utils.ImageUtil
+import com.bumptech.glide.Glide
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
+
+class ImageListAdapter(private val activity: Activity, private val imageInfoList: List<ImageInfo>) :
+    PagerAdapter() {
+    override fun getCount() = imageInfoList.size
+
+    override fun instantiateItem(container: ViewGroup, position: Int): View {
+        val root = View.inflate(activity, R.layout.item_image, null)
+        container.addView(
+            root, ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.MATCH_PARENT
+        )
+        val photoView = root.findViewById<ImageView>(R.id.photoView)
+        photoView.setBackgroundColor(Color.parseColor("#000000"))
+        val imageInfo = imageInfoList[position]
+        Glide.with(activity).load(imageInfo.path).into(photoView)
+
+        initListeners(root, imageInfo)
+        return root
+    }
+
+    override fun isViewFromObject(view: View, obj: Any): Boolean {
+        return view === obj
+    }
+
+    override fun destroyItem(container: ViewGroup, position: Int, obj: Any) {
+        container.removeView(obj as View)
+    }
+
+    private fun initListeners(rootView: View, imageInfo: ImageInfo) {
+        rootView.findViewById<ImageView>(R.id.favoriteIcon).setOnClickListener {
+            delImageFromFavorite(imageInfo)
+//            finish()
+        }
+    }
+
+    private fun delImageFromFavorite(imageInfo: ImageInfo) {
+        MainScope().launch {
+            ImageUtil.deleteFile(imageInfo.path)
+            ImageInfoRepository.del(imageInfo.url)
+        }
+    }
+}

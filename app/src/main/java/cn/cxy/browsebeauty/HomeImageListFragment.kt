@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CompoundButton
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import cn.cxy.browsebeauty.db.repository.ImageInfoRepository
@@ -16,9 +15,9 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.scalars.ScalarsConverterFactory
 
-class ImageListFragment : Fragment() {
+class HomeImageListFragment : Fragment() {
     private var urlList = mutableListOf<String>()
-    private var myAdapter: MyAdapter? = null
+    private var homeImageListAdapter: HomeImageListAdapter? = null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -42,7 +41,7 @@ class ImageListFragment : Fragment() {
             }
         })
         favoriteIcon.setOnCheckedChangeListener { _, isChecked ->
-            val imageFragment = myAdapter?.getFragment(vp2.currentItem)
+            val imageFragment = homeImageListAdapter?.getFragment(vp2.currentItem)
             imageFragment?.let {
                 if (isChecked) {
                     addImageToFavorite(it)
@@ -53,7 +52,7 @@ class ImageListFragment : Fragment() {
         }
     }
 
-    private fun delImageFromFavorite(it: ImageFragment) {
+    private fun delImageFromFavorite(it: HomeImageFragment) {
         MainScope().launch {
             val imageInfo = ImageInfoRepository.queryByUrl(it.url)
             imageInfo?.let {
@@ -63,7 +62,7 @@ class ImageListFragment : Fragment() {
         }
     }
 
-    private fun addImageToFavorite(it: ImageFragment) {
+    private fun addImageToFavorite(it: HomeImageFragment) {
         val image = it.getImage()
         if (context != null && image != null) {
             MainScope().launch(Dispatchers.IO) {
@@ -81,7 +80,7 @@ class ImageListFragment : Fragment() {
         }
     }
 
-    private fun getFragment(position: Int) = myAdapter?.getFragment(position)
+    private fun getFragment(position: Int) = homeImageListAdapter?.getFragment(position)
 
     private fun queryData() {
         val networkService = getNetworkService()
@@ -89,8 +88,8 @@ class ImageListFragment : Fragment() {
             val result = withContext(Dispatchers.IO) { networkService.query() }
             result.split("\n").forEach { urlList.add(it) }
             activity?.let {
-                myAdapter = MyAdapter(it, urlList)
-                vp2.adapter = myAdapter
+                homeImageListAdapter = HomeImageListAdapter(it, urlList)
+                vp2.adapter = homeImageListAdapter
             }
         }
     }

@@ -3,12 +3,12 @@ package cn.cxy.browsebeauty
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 
-class MyAdapter(fragmentActivity: FragmentActivity, var urlList: MutableList<String>) :
+class HomeImageListAdapter(fragmentActivity: FragmentActivity, var urlList: MutableList<String>) :
     FragmentStateAdapter(fragmentActivity) {
-    private var fragments = mutableListOf<ImageFragment>()
+    private var fragments = mutableListOf<HomeImageFragment>()
 
-    override fun createFragment(position: Int): ImageFragment {
-        val fragment = ImageFragment(urlList[position])
+    override fun createFragment(position: Int): HomeImageFragment {
+        val fragment = HomeImageFragment(urlList[position])
         fragments.add(fragment)
         return fragment
     }
