@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import cn.cxy.browsebeauty.favorite.FavoriteActivity
+import cn.cxy.browsebeauty.favorite.FavoriteListActivity
 import kotlinx.android.synthetic.main.mine_part_favorite.*
 
 class MineFragment : Fragment() {
@@ -25,7 +25,7 @@ class MineFragment : Fragment() {
 
     private fun setListeners() {
         favoriteLayout.setOnClickListener {
-            startActivity(Intent(context, FavoriteActivity::class.java))
+            startActivity(Intent(context, FavoriteListActivity::class.java))
         }
     }
 }

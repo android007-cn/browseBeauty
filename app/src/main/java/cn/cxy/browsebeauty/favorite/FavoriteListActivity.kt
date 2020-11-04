@@ -5,14 +5,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import cn.cxy.browsebeauty.R
 import cn.cxy.browsebeauty.db.repository.ImageInfoRepository
-import kotlinx.android.synthetic.main.activity_favorite.*
+import kotlinx.android.synthetic.main.activity_favorite_list.*
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 
-class FavoriteActivity : AppCompatActivity() {
+class FavoriteListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_favorite)
+        setContentView(R.layout.activity_favorite_list)
         initRecyclerView()
     }
 
@@ -24,14 +24,4 @@ class FavoriteActivity : AppCompatActivity() {
             adapter.setData(ImageInfoRepository.listAsMultiImageInfo())
         }
     }
-
-    private fun getData(): List<String> {
-        val dataList = ArrayList<String>()
-        for (index in 0 until 100) {
-            val text = " 数据$index "
-            dataList.add(text)
-        }
-        return dataList
-    }
-
 }

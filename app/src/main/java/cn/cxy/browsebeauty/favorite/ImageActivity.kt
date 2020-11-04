@@ -1,10 +1,11 @@
-package cn.cxy.browsebeauty
+package cn.cxy.browsebeauty.favorite
 
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import cn.cxy.browsebeauty.R
 import cn.cxy.browsebeauty.db.bean.ImageInfo
 import cn.cxy.browsebeauty.utils.EXTRA_IMAGE_INFO
 import com.bumptech.glide.Glide

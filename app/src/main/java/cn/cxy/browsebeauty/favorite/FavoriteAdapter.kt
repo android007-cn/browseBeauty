@@ -1,13 +1,13 @@
 package cn.cxy.browsebeauty.favorite
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import cn.cxy.browsebeauty.ImageActivity
 import cn.cxy.browsebeauty.R
 import cn.cxy.browsebeauty.db.bean.ImageInfo
 import cn.cxy.browsebeauty.db.bean.MultiImageInfo
