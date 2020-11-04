@@ -19,7 +19,7 @@ object ImageInfoRepository : BaseRepository() {
         return withContext(Dispatchers.IO) {
             val result = mutableListOf<MultiImageInfo>()
             val imageInfoList = imageInfoDao.list()
-            (0..imageInfoList.size / FAVORITE_SIZE_OF_ROW + 1).forEach { index1 ->
+            (0..imageInfoList.size / FAVORITE_SIZE_OF_ROW).forEach { index1 ->
                 val tempList = mutableListOf<ImageInfo>()
                 if (index1 < imageInfoList.size / FAVORITE_SIZE_OF_ROW) {
                     (0 until FAVORITE_SIZE_OF_ROW).forEach { index2 ->
