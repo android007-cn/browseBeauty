@@ -1,7 +1,6 @@
 package cn.cxy.browsebeauty.favorite
 
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,14 +11,14 @@ import cn.cxy.browsebeauty.R
 import cn.cxy.browsebeauty.db.bean.ImageInfo
 import cn.cxy.browsebeauty.db.bean.MultiImageInfo
 import com.bumptech.glide.Glide
-import kotlinx.android.synthetic.main.item_layout.view.*
+import kotlinx.android.synthetic.main.item_favorite_list.view.*
 
 class FavoriteAdapter : RecyclerView.Adapter<ViewHolder>() {
     private var mDataList = mutableListOf<MultiImageInfo>()
     private lateinit var mContext: Context
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         mContext = parent.context
-        val view = LayoutInflater.from(mContext).inflate(R.layout.item_layout, parent, false)
+        val view = LayoutInflater.from(mContext).inflate(R.layout.item_favorite_list, parent, false)
         return ViewHolder(view)
     }
 
