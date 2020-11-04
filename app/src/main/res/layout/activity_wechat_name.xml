@@ -7,6 +7,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingStart="10dp"
         android:background="#FFFFFF"
         android:paddingTop="20dp"
         android:paddingBottom="20dp">
@@ -15,7 +16,7 @@
             android:id="@+id/userLogoIv"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:src="@drawable/user_logo" />
+            android:src="@drawable/ic_user_logo" />
 
         <TextView
             android:id="@+id/userNameTv"
@@ -35,20 +36,19 @@
             android:layout_toEndOf="@id/userLogoIv">
 
             <TextView
-                android:id="@+id/wechatId"
                 android:layout_width="0dp"
                 android:layout_height="20dp"
                 android:layout_marginStart="10dp"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:text="安卓开发零基础入门系列"
+                android:text="!@#$%^*()"
                 android:textColor="#7F7F7F" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
-                android:src="@drawable/right_arrow" />
+                android:src="@drawable/ic_right" />
         </LinearLayout>
 
     </RelativeLayout>
