@@ -3,6 +3,7 @@ package cn.cxy.browsebeauty.favorite
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.INVISIBLE
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
@@ -26,10 +27,10 @@ class FavoriteAdapter : RecyclerView.Adapter<ViewHolder>() {
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val data = mDataList[position]
-        holder.itemView.iv1.hide()
-        holder.itemView.iv2.hide()
-        holder.itemView.iv3.hide()
-        holder.itemView.iv4.hide()
+        holder.itemView.iv1.visibility=INVISIBLE
+        holder.itemView.iv2.visibility=INVISIBLE
+        holder.itemView.iv3.visibility=INVISIBLE
+        holder.itemView.iv4.visibility=INVISIBLE
 
         data.imageInfoList.getOrNull(0)?.let { showImage(it, holder.itemView.iv1) }
         data.imageInfoList.getOrNull(1)?.let { showImage(it, holder.itemView.iv2) }

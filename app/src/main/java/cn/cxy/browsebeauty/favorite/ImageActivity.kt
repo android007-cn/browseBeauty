@@ -13,7 +13,6 @@ import cn.cxy.browsebeauty.utils.ImageUtil
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_image.*
 import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class ImageActivity : AppCompatActivity() {
@@ -30,15 +29,22 @@ class ImageActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_image)
         val imageInfo = intent.getParcelableExtra<ImageInfo>(EXTRA_IMAGE_INFO)
+        initViews(imageInfo)
+        initListeners(imageInfo)
+    }
+
+    private fun initViews(imageInfo: ImageInfo?) {
         photoView.setBackgroundColor(Color.parseColor("#000000"))
         imageInfo?.let {
             Glide.with(this).load(it.path).into(photoView)
         }
+    }
 
-        favoriteIcon.setOnCheckedChangeListener { _, isChecked ->
+    private fun initListeners(imageInfo: ImageInfo?) {
+        favoriteIcon.setOnClickListener {
             imageInfo?.let {
                 delImageFromFavorite(it)
-//                finish()
+                finish()
             }
         }
     }
