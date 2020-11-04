@@ -9,8 +9,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <include layout="@layout/activity_wechat_name" />
-
+        <include layout="@layout/activity_user_desc" />
 
         <include layout="@layout/mine_part_favorite" />
 
