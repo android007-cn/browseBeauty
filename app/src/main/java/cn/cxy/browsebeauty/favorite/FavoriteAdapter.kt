@@ -11,6 +11,8 @@ import cn.cxy.browsebeauty.R
 import cn.cxy.browsebeauty.db.bean.ImageInfo
 import cn.cxy.browsebeauty.db.bean.MultiImageInfo
 import com.bumptech.glide.Glide
+import com.cxyzy.utils.ext.hide
+import com.cxyzy.utils.ext.show
 import kotlinx.android.synthetic.main.item_favorite_list.view.*
 
 class FavoriteAdapter : RecyclerView.Adapter<ViewHolder>() {
@@ -24,6 +26,11 @@ class FavoriteAdapter : RecyclerView.Adapter<ViewHolder>() {
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val data = mDataList[position]
+        holder.itemView.iv1.hide()
+        holder.itemView.iv2.hide()
+        holder.itemView.iv3.hide()
+        holder.itemView.iv4.hide()
+
         data.imageInfoList.getOrNull(0)?.let { showImage(it, holder.itemView.iv1) }
         data.imageInfoList.getOrNull(1)?.let { showImage(it, holder.itemView.iv2) }
         data.imageInfoList.getOrNull(2)?.let { showImage(it, holder.itemView.iv3) }
@@ -35,6 +42,7 @@ class FavoriteAdapter : RecyclerView.Adapter<ViewHolder>() {
         view.setOnClickListener {
             mContext.startActivity(ImageActivity.buildIntent(mContext, data))
         }
+        view.show()
     }
 
     fun setData(dataList: List<MultiImageInfo>) {
