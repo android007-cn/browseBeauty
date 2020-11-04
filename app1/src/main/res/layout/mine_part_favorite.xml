@@ -26,6 +26,7 @@
                 android:src="@drawable/ic_favorite" />
 
             <TextView
+                android:id="@+id/favoriteTv"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"

@@ -3,11 +3,13 @@
 2. 浏览图片时支持手势缩放
 3. 支持收藏（下载）图片
 4. 显示收藏
+5. 查看被收藏图片时，可以去收藏
+6. "我的"首页显示收藏数量
 # 技术点：
 1. 访问网络接口获取数据
 2. 使用协程
 3. 使用ViewPager2进行翻页
 4. 通过glide显示图片
 5. 使用room操作sqlite数据库记录和读取数据
-6. 使用BottomNavigationView+菜单实现底部导航栏
+6. 使用BottomNavigationView添加底部导航栏
 7. 使用recyclerview显示列表

@@ -1,6 +1,7 @@
 package cn.cxy.browsebeauty.favorite
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import cn.cxy.browsebeauty.R
@@ -10,6 +11,7 @@ import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 
 class FavoriteListActivity : AppCompatActivity() {
+    private val adapter = FavoriteAdapter()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_favorite_list)
@@ -17,9 +19,16 @@ class FavoriteListActivity : AppCompatActivity() {
     }
 
     private fun initRecyclerView() {
-        val adapter = FavoriteAdapter()
         favoriteRv.adapter = adapter
         favoriteRv.layoutManager = LinearLayoutManager(this)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        loadData()
+    }
+
+    private fun loadData() {
         MainScope().launch {
             adapter.setData(ImageInfoRepository.listAsMultiImageInfo())
         }
