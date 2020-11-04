@@ -54,7 +54,6 @@ class ImageListAdapter(
         MainScope().launch {
             ImageUtil.deleteFile(imageInfo.path)
             ImageInfoRepository.del(imageInfo.url)
-            imageInfoList.removeAt(position)
         }
     }
 }
