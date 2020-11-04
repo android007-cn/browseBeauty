@@ -14,7 +14,10 @@ import com.bumptech.glide.Glide
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 
-class ImageListAdapter(private val activity: Activity, private val imageInfoList: List<ImageInfo>) :
+class ImageListAdapter(
+    private val activity: Activity,
+    private val imageInfoList: MutableList<ImageInfo>
+) :
     PagerAdapter() {
     override fun getCount() = imageInfoList.size
 
@@ -29,7 +32,7 @@ class ImageListAdapter(private val activity: Activity, private val imageInfoList
         val imageInfo = imageInfoList[position]
         Glide.with(activity).load(imageInfo.path).into(photoView)
 
-        initListeners(root, imageInfo)
+        initListeners(root, imageInfo, position)
         return root
     }
 
@@ -41,17 +44,17 @@ class ImageListAdapter(private val activity: Activity, private val imageInfoList
         container.removeView(obj as View)
     }
 
-    private fun initListeners(rootView: View, imageInfo: ImageInfo) {
+    private fun initListeners(rootView: View, imageInfo: ImageInfo, position: Int) {
         rootView.findViewById<ImageView>(R.id.favoriteIcon).setOnClickListener {
-            delImageFromFavorite(imageInfo)
-//            finish()
+            delImageFromFavorite(imageInfo, position)
         }
     }
 
-    private fun delImageFromFavorite(imageInfo: ImageInfo) {
+    private fun delImageFromFavorite(imageInfo: ImageInfo, position: Int) {
         MainScope().launch {
             ImageUtil.deleteFile(imageInfo.path)
             ImageInfoRepository.del(imageInfo.url)
+            imageInfoList.removeAt(position)
         }
     }
 }

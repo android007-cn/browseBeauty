@@ -40,7 +40,7 @@ class ImageActivity : AppCompatActivity() {
 
     private fun initViews(imageInfo: ImageInfo?) {
         MainScope().launch {
-            vp.adapter = ImageListAdapter(this@ImageActivity, ImageInfoRepository.list())
+            vp.adapter = ImageListAdapter(this@ImageActivity, ImageInfoRepository.list().toMutableList())
             vp.currentItem = mPositionInList
         }
     }
