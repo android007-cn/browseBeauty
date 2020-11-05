@@ -9,7 +9,6 @@ import cn.cxy.browsebeauty.db.bean.ImageInfo
 import cn.cxy.browsebeauty.db.repository.ImageInfoRepository
 import cn.cxy.browsebeauty.utils.EXTRA_IMAGE_INFO
 import cn.cxy.browsebeauty.utils.EXTRA_IMAGE_INFO_POSITION
-import cn.cxy.browsebeauty.utils.ImageUtil
 import kotlinx.android.synthetic.main.activity_image.*
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
@@ -40,7 +39,7 @@ class ImageActivity : AppCompatActivity() {
 
     private fun initViews(imageInfo: ImageInfo?) {
         MainScope().launch {
-            vp.adapter = ImageListAdapter(this@ImageActivity, ImageInfoRepository.list().toMutableList())
+            vp.adapter = ImageListAdapter(this@ImageActivity, ImageInfoRepository.list().toMutableList(),vp)
             vp.currentItem = mPositionInList
         }
     }

@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import cn.cxy.browsebeauty.R
 import cn.cxy.browsebeauty.db.bean.ImageInfo
-import cn.cxy.browsebeauty.utils.FAVORITE_SIZE_OF_ROW
 import com.bumptech.glide.Glide
 import com.cxyzy.utils.ext.show
 import kotlinx.android.synthetic.main.item_favorite_list.view.*
@@ -27,7 +26,7 @@ class FavoriteAdapter : RecyclerView.Adapter<ViewHolder>() {
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val data = mDataList[position]
         holder.itemView.iv.visibility = INVISIBLE
-        showImage(data, holder.itemView.iv, position * FAVORITE_SIZE_OF_ROW)
+        showImage(data, holder.itemView.iv, position)
     }
 
     private fun showImage(
