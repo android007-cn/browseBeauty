@@ -9,6 +9,8 @@ import androidx.viewpager2.widget.ViewPager2
 import cn.cxy.browsebeauty.db.repository.ImageInfoRepository
 import cn.cxy.browsebeauty.utils.ImageUtil.deleteFile
 import cn.cxy.browsebeauty.utils.ImageUtil.saveBitmap
+import cn.cxy.browsebeauty.vptrans.AlphaScaleTransformer2
+import cn.cxy.browsebeauty.vptrans.GooglePageTransformer2
 import kotlinx.android.synthetic.main.fragment_image.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
@@ -34,6 +36,7 @@ class HomeImageListFragment : Fragment() {
         queryData()
         //设置上下滑动
         vp2.orientation = ViewPager2.ORIENTATION_VERTICAL
+        vp2.setPageTransformer(AlphaScaleTransformer2())
         setListeners()
     }
 
