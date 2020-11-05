@@ -25,7 +25,7 @@
             android:layout_marginStart="10dp"
             android:layout_toEndOf="@id/userLogoIv"
             android:gravity="center_vertical"
-            android:text="安卓007"
+            android:text="@string/default_user_name"
             android:textColor="#000000"
             android:textStyle="bold" />
 
