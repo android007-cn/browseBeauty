@@ -14,14 +14,10 @@ import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 
 class ImageActivity : AppCompatActivity() {
-    var mPositionInList = 0
+    private var mPositionInList = 0
 
     companion object {
-        fun buildIntent(
-            context: Context,
-            imageInfo: ImageInfo,
-            positionInImageList: Int
-        ): Intent {
+        fun buildIntent(context: Context, imageInfo: ImageInfo, positionInImageList: Int): Intent {
             val intent = Intent(context, ImageActivity::class.java)
             intent.putExtra(EXTRA_IMAGE_INFO, imageInfo)
             intent.putExtra(EXTRA_IMAGE_INFO_POSITION, positionInImageList)
