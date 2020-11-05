@@ -43,10 +43,10 @@ class HomeImageListFragment : Fragment() {
                 updateFavoriteIv(position)
             }
         })
-        favoriteIcon.setOnCheckedChangeListener { _, isChecked ->
+        favoriteIcon.setOnClickListener {
             val imageFragment = homeImageListAdapter?.getFragment(vp2.currentItem)
             imageFragment?.let {
-                if (isChecked) {
+                if (favoriteIcon.isChecked) {
                     addImageToFavorite(it)
                 } else {
                     delImageFromFavorite(it)
