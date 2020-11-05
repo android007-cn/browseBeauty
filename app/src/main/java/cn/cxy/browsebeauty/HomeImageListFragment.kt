@@ -10,7 +10,10 @@ import cn.cxy.browsebeauty.db.repository.ImageInfoRepository
 import cn.cxy.browsebeauty.utils.ImageUtil.deleteFile
 import cn.cxy.browsebeauty.utils.ImageUtil.saveBitmap
 import kotlinx.android.synthetic.main.fragment_image.*
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.scalars.ScalarsConverterFactory
@@ -103,5 +106,12 @@ class HomeImageListFragment : Fragment() {
             .build()
 
         return retrofit.create(NetworkService::class.java)
+    }
+
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+        if (!hidden) {
+            updateFavoriteIv(vp2.currentItem)
+        }
     }
 }
