@@ -25,9 +25,7 @@ class HomeImageFragment(var url: String) : Fragment() {
         val imageView = PhotoView(context)
         imageView.setBackgroundColor(Color.parseColor("#000000"))
         mImageView = imageView
-        Glide.with(this)
-            .asBitmap()
-            .load(url)
+        Glide.with(this).asBitmap().load(url)
             .into(object : CustomTarget<Bitmap?>() {
                 override fun onResourceReady(
                     resource: Bitmap,
