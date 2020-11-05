@@ -18,7 +18,7 @@ import kotlinx.coroutines.launch
 class ImageListAdapter(
     private val activity: Activity,
     private val imageInfoList: MutableList<ImageInfo>,
-    val vp: ViewPager
+    private val vp: ViewPager
 ) :
     PagerAdapter() {
     override fun getCount() = imageInfoList.size
@@ -56,9 +56,12 @@ class ImageListAdapter(
         MainScope().launch {
             ImageUtil.deleteFile(imageInfo.path)
             ImageInfoRepository.del(imageInfo.url)
-            vp.currentItem = position+1
             imageInfoList.removeAt(position)
             notifyDataSetChanged()
         }
+    }
+
+    override fun getItemPosition(obj: Any): Int {
+        return POSITION_NONE
     }
 }
