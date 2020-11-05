@@ -6,6 +6,7 @@ import android.view.View
 import android.view.View.INVISIBLE
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import cn.cxy.browsebeauty.R
@@ -27,6 +28,10 @@ class FavoriteAdapter : RecyclerView.Adapter<ViewHolder>() {
         val data = mDataList[position]
         holder.itemView.iv.visibility = INVISIBLE
         showImage(data, holder.itemView.iv, position)
+        holder.itemView.iv.setOnLongClickListener {
+            Toast.makeText(mContext, "被长按了", Toast.LENGTH_SHORT).show()
+            true
+        }
     }
 
     private fun showImage(
