@@ -61,6 +61,9 @@ class ImageListAdapter(
         }
     }
 
+    /**
+     * 覆写此函数，才能使得删除数据后UI及时刷新
+     */
     override fun getItemPosition(obj: Any): Int {
         return POSITION_NONE
     }
