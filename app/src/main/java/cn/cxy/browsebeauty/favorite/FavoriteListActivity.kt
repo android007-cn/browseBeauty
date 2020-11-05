@@ -1,8 +1,8 @@
 package cn.cxy.browsebeauty.favorite
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import cn.cxy.browsebeauty.R
 import cn.cxy.browsebeauty.db.repository.ImageInfoRepository
@@ -20,7 +20,7 @@ class FavoriteListActivity : AppCompatActivity() {
 
     private fun initRecyclerView() {
         favoriteRv.adapter = adapter
-        favoriteRv.layoutManager = LinearLayoutManager(this)
+        favoriteRv.layoutManager = GridLayoutManager(this, 4, GridLayoutManager.VERTICAL, false)
     }
 
     override fun onResume() {
@@ -30,7 +30,7 @@ class FavoriteListActivity : AppCompatActivity() {
 
     private fun loadData() {
         MainScope().launch {
-            adapter.setData(ImageInfoRepository.listAsMultiImageInfo())
+            adapter.setData(ImageInfoRepository.list())
         }
     }
 }

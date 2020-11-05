@@ -1,8 +1,6 @@
 package cn.cxy.browsebeauty.db.repository
 
 import cn.cxy.browsebeauty.db.bean.ImageInfo
-import cn.cxy.browsebeauty.db.bean.MultiImageInfo
-import cn.cxy.browsebeauty.utils.FAVORITE_SIZE_OF_ROW
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -12,26 +10,6 @@ object ImageInfoRepository : BaseRepository() {
         withContext(Dispatchers.IO) {
             val imageInfo = ImageInfo(0, path, url)
             imageInfoDao.add(imageInfo)
-        }
-    }
-
-    suspend fun listAsMultiImageInfo(): List<MultiImageInfo> {
-        return withContext(Dispatchers.IO) {
-            val result = mutableListOf<MultiImageInfo>()
-            val imageInfoList = imageInfoDao.list()
-            (0..imageInfoList.size / FAVORITE_SIZE_OF_ROW).forEach { index1 ->
-                val tempList = mutableListOf<ImageInfo>()
-                (0 until FAVORITE_SIZE_OF_ROW).forEach { index2 ->
-                    if (index1 * FAVORITE_SIZE_OF_ROW + index2 < imageInfoList.size) {
-                        val imageInfo = imageInfoList[index1 * FAVORITE_SIZE_OF_ROW + index2]
-                        tempList.add(imageInfo)
-                    }
-                }
-                if (tempList.isNotEmpty()) {
-                    result.add(MultiImageInfo(tempList))
-                }
-            }
-            return@withContext result
         }
     }
 

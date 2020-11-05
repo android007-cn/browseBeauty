@@ -11,6 +11,3 @@ data class ImageInfo(
     @PrimaryKey(autoGenerate = true) val id: Int,
     var path: String, var url: String
 ) : Parcelable
-
-class MultiImageInfo(var imageInfoList: List<ImageInfo>)
-
