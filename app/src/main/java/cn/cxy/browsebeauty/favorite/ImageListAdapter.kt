@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 
 class ImageListAdapter(
     private val activity: Activity,
-    private val imageInfoList: MutableList<ImageInfo>,
+    private val imageInfoList: MutableList<ImageInfo>
 ) : PagerAdapter() {
     override fun getCount() = imageInfoList.size
 
