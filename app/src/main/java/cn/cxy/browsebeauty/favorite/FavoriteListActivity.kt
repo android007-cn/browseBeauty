@@ -37,9 +37,9 @@ class FavoriteListActivity : AppCompatActivity(), SelectionModeCallback {
                     .forEach {
                         ImageUtil.deleteFile(it.path)
                         ImageInfoRepository.del(it.url)
+                        mSelectImageInfoList.remove(it)
                     }
-                mAdapter.setData(mSelectImageInfoList)
-                mAdapter.notifyDataSetChanged()
+                exitSelectionMode()
             }
         }
     }
@@ -66,16 +66,17 @@ class FavoriteListActivity : AppCompatActivity(), SelectionModeCallback {
         mSelectImageInfoList[touchedItemPosition].isSelected = isChecked
     }
 
-    private fun onExitSelectionMode() {
+    private fun exitSelectionMode() {
         isInSelectionMode = false
         mSelectImageInfoList.forEach { it.isSelected = null }
+        mAdapter.setData(mSelectImageInfoList)
         mAdapter.notifyDataSetChanged()
         imageBottomBar.hide()
     }
 
     override fun onBackPressed() {
         if (isInSelectionMode) {
-            onExitSelectionMode()
+            exitSelectionMode()
         } else {
             super.onBackPressed()
         }
