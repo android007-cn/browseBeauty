@@ -7,7 +7,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 @Entity
-data class ImageInfo(
+open class ImageInfo(
     @PrimaryKey(autoGenerate = true) val id: Int,
     var path: String, var url: String
 ) : Parcelable

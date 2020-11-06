@@ -6,17 +6,17 @@ import android.view.View
 import android.view.View.INVISIBLE
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import cn.cxy.browsebeauty.R
-import cn.cxy.browsebeauty.db.bean.ImageInfo
+import cn.cxy.browsebeauty.db.bean.SelectImageInfo
 import com.bumptech.glide.Glide
 import com.cxyzy.utils.ext.show
 import kotlinx.android.synthetic.main.item_favorite_list.view.*
 
-class FavoriteAdapter : RecyclerView.Adapter<ViewHolder>() {
-    private var mDataList = mutableListOf<ImageInfo>()
+class FavoriteAdapter(var selectionModeCallback: SelectionModeCallback) :
+    RecyclerView.Adapter<ViewHolder>() {
+    private var mDataList = mutableListOf<SelectImageInfo>()
     private lateinit var mContext: Context
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         mContext = parent.context
@@ -28,25 +28,41 @@ class FavoriteAdapter : RecyclerView.Adapter<ViewHolder>() {
         val data = mDataList[position]
         holder.itemView.iv.visibility = INVISIBLE
         showImage(data, holder.itemView.iv, position)
+        showImageSelectCheckbox(holder, data)
         holder.itemView.iv.setOnLongClickListener {
-            Toast.makeText(mContext, "被长按了", Toast.LENGTH_SHORT).show()
+            selectionModeCallback.onEnterSelectionMode(position)
             true
         }
     }
 
-    private fun showImage(
-        data: ImageInfo,
-        view: ImageView,
-        positionInImageList: Int
-    ) {
+    private fun showImage(data: SelectImageInfo, view: ImageView, positionInImageList: Int) {
         Glide.with(mContext).load(data.path).centerCrop().into(view)
         view.setOnClickListener {
-            mContext.startActivity(ImageActivity.buildIntent(mContext, data, positionInImageList))
+            mContext.startActivity(
+                ImageActivity.buildIntent(
+                    mContext,
+                    data.toImageInfo(),
+                    positionInImageList
+                )
+            )
         }
         view.show()
     }
 
-    fun setData(dataList: List<ImageInfo>) {
+    private fun showImageSelectCheckbox(
+        holder: RecyclerView.ViewHolder,
+        data: SelectImageInfo
+    ) {
+        val imageSelectCheckbox = holder.itemView.imageSelectCheckbox
+        if (data.isSelected != null) {
+            imageSelectCheckbox.isChecked = data.isSelected!!
+            imageSelectCheckbox.show()
+        } else {
+            imageSelectCheckbox.show(false)
+        }
+    }
+
+    fun setData(dataList: MutableList<SelectImageInfo>) {
         mDataList.clear()
         mDataList.addAll(dataList)
         notifyDataSetChanged()
