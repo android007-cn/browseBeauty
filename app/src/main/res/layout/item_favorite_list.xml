@@ -5,7 +5,7 @@
 
     <ImageView
         android:id="@+id/iv"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_margin="5dp"
         tools:src="@drawable/ic_launcher_background" />
@@ -17,6 +17,8 @@
         android:layout_alignTop="@id/iv"
         android:layout_alignEnd="@id/iv"
         android:button="@null"
-        android:drawableTop="@drawable/image_checkbox_selector"
-        android:padding="5dp" />
+        android:drawableBottom="@drawable/image_checkbox_selector"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
+        android:paddingBottom="5dp" />
 </RelativeLayout>

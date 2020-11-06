@@ -39,7 +39,7 @@ class FavoriteAdapter : RecyclerView.Adapter<ViewHolder>() {
         view: ImageView,
         positionInImageList: Int
     ) {
-        Glide.with(mContext).load(data.path).into(view)
+        Glide.with(mContext).load(data.path).centerCrop().into(view)
         view.setOnClickListener {
             mContext.startActivity(ImageActivity.buildIntent(mContext, data, positionInImageList))
         }
