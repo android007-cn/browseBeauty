@@ -28,7 +28,7 @@ class FavoriteAdapter(var selectionModeCallback: SelectionModeCallback) :
         val data = mDataList[position]
         holder.itemView.iv.visibility = INVISIBLE
         showImage(data, holder.itemView.iv, position)
-        showImageSelectCheckbox(holder, data)
+        showImageSelectCheckbox(holder, data, position)
         holder.itemView.iv.setOnLongClickListener {
             selectionModeCallback.onEnterSelectionMode(position)
             true
@@ -51,7 +51,8 @@ class FavoriteAdapter(var selectionModeCallback: SelectionModeCallback) :
 
     private fun showImageSelectCheckbox(
         holder: RecyclerView.ViewHolder,
-        data: SelectImageInfo
+        data: SelectImageInfo,
+        position: Int
     ) {
         val imageSelectCheckbox = holder.itemView.imageSelectCheckbox
         if (data.isSelected != null) {
@@ -59,6 +60,9 @@ class FavoriteAdapter(var selectionModeCallback: SelectionModeCallback) :
             imageSelectCheckbox.show()
         } else {
             imageSelectCheckbox.show(false)
+        }
+        imageSelectCheckbox.setOnCheckedChangeListener { _, isChecked ->
+            selectionModeCallback.onChecked(position, isChecked)
         }
     }
 

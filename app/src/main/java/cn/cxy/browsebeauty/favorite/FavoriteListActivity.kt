@@ -6,6 +6,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import cn.cxy.browsebeauty.R
 import cn.cxy.browsebeauty.db.bean.SelectImageInfo
 import cn.cxy.browsebeauty.db.repository.ImageInfoRepository
+import cn.cxy.browsebeauty.utils.ImageUtil
+import com.cxyzy.utils.ext.hide
+import com.cxyzy.utils.ext.show
 import kotlinx.android.synthetic.main.activity_favorite_list.*
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
@@ -14,10 +17,12 @@ import kotlinx.coroutines.launch
 class FavoriteListActivity : AppCompatActivity(), SelectionModeCallback {
     private val mAdapter = FavoriteAdapter(this)
     private val mSelectImageInfoList = mutableListOf<SelectImageInfo>()
+    private var isInSelectionMode = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_favorite_list)
         initRecyclerView()
+        initListeners()
     }
 
     private fun initRecyclerView() {
@@ -25,10 +30,18 @@ class FavoriteListActivity : AppCompatActivity(), SelectionModeCallback {
         favoriteRv.layoutManager = GridLayoutManager(this, 4, GridLayoutManager.VERTICAL, false)
     }
 
-
-    override fun onResume() {
-        super.onResume()
-        loadData()
+    private fun initListeners() {
+        favoriteIcon.setOnClickListener {
+            MainScope().launch {
+                mSelectImageInfoList.filter { it.isSelected == true }
+                    .forEach {
+                        ImageUtil.deleteFile(it.path)
+                        ImageInfoRepository.del(it.url)
+                    }
+                mAdapter.setData(mSelectImageInfoList)
+                mAdapter.notifyDataSetChanged()
+            }
+        }
     }
 
     private fun loadData() {
@@ -42,14 +55,39 @@ class FavoriteListActivity : AppCompatActivity(), SelectionModeCallback {
     }
 
     override fun onEnterSelectionMode(touchedItemPosition: Int) {
-        mSelectImageInfoList.forEach {
-            it.isSelected = false
-        }
+        isInSelectionMode = true
+        mSelectImageInfoList.forEach { it.isSelected = false }
         mSelectImageInfoList[touchedItemPosition].isSelected = true
         mAdapter.notifyDataSetChanged()
+        imageBottomBar.show()
+    }
+
+    override fun onChecked(touchedItemPosition: Int, isChecked: Boolean) {
+        mSelectImageInfoList[touchedItemPosition].isSelected = isChecked
+    }
+
+    private fun onExitSelectionMode() {
+        isInSelectionMode = false
+        mSelectImageInfoList.forEach { it.isSelected = null }
+        mAdapter.notifyDataSetChanged()
+        imageBottomBar.hide()
+    }
+
+    override fun onBackPressed() {
+        if (isInSelectionMode) {
+            onExitSelectionMode()
+        } else {
+            super.onBackPressed()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        loadData()
     }
 }
 
 interface SelectionModeCallback {
     fun onEnterSelectionMode(touchedItemPosition: Int)
+    fun onChecked(touchedItemPosition: Int, isChecked: Boolean)
 }
