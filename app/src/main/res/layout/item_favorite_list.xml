@@ -1,4 +1,5 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
@@ -6,5 +7,16 @@
         android:id="@+id/iv"
         android:layout_width="wrap_content"
         android:layout_height="100dp"
-        android:layout_margin="5dp" />
-</LinearLayout>
+        android:layout_margin="5dp"
+        tools:src="@drawable/ic_launcher_background" />
+
+    <CheckBox
+        android:id="@+id/favoriteIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/iv"
+        android:layout_alignEnd="@id/iv"
+        android:button="@null"
+        android:drawableTop="@drawable/image_checkbox_selector"
+        android:padding="5dp" />
+</RelativeLayout>
