@@ -7,11 +7,11 @@
 6. "我的"首页显示收藏数量
 7. 图片上下翻页时增加切换过渡效果
 # 技术点：
-1. retrofit+okhttp:访问网络接口获取数据
-2. coroutines:异步调用
+1. Retrofit+okHttp:访问网络接口获取数据
+2. Coroutines:异步调用
 3. ViewPager2:进行翻页
-4. glide:显示图片
-5. room:操作sqlite数据库记录和读取数据
+4. Glide:显示图片
+5. Room:操作sqlite数据库记录和读取数据
 6. BottomNavigationView: 底部导航栏
-7. recyclerview:显示列表
+7. Recyclerview:显示列表
 8. PageTransformer: 翻页时增加切换效果
