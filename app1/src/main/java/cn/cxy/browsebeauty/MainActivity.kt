@@ -1,52 +1,44 @@
 package cn.cxy.browsebeauty
 
 import android.os.Bundle
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
+import androidx.viewpager2.widget.ViewPager2
 import kotlinx.android.synthetic.main.activity_main.*
-import java.util.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import okhttp3.OkHttpClient
+import retrofit2.Retrofit
+import retrofit2.converter.scalars.ScalarsConverterFactory
 
 class MainActivity : AppCompatActivity() {
-    private var lastIndex = 0
-    private var mFragments = mutableListOf<Fragment>()
+    var urlList = mutableListOf<String>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        initBottomNavigation()
-        initData()
+        queryData()
+        //设置上下滑动
+        vp2.orientation = ViewPager2.ORIENTATION_VERTICAL
     }
 
-    private fun initData() {
-        mFragments = ArrayList()
-        mFragments.add(HomeImageListFragment())
-        mFragments.add(MineFragment())
-        // 初始化展示MessageFragment
-        setFragmentPosition(0)
-    }
-
-    private fun initBottomNavigation() {
-        bottomNavigationView.setOnNavigationItemSelectedListener(BottomNavigationView.OnNavigationItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.menu_message -> setFragmentPosition(0)
-                R.id.menu_contacts -> setFragmentPosition(1)
-                else -> { }
-            }
-            true
-        })
-    }
-
-    private fun setFragmentPosition(position: Int) {
-        val ft = supportFragmentManager.beginTransaction()
-        val currentFragment = mFragments[position]
-        val lastFragment = mFragments[lastIndex]
-        lastIndex = position
-        ft.hide(lastFragment)
-        if (!currentFragment.isAdded) {
-            supportFragmentManager.beginTransaction().remove(currentFragment).commit()
-            ft.add(R.id.ll_frameLayout, currentFragment)
+    private fun queryData() {
+        val networkService = getNetworkService()
+        MainScope().launch(Dispatchers.Main) {
+            val result = withContext(Dispatchers.IO) { networkService.query() }
+            result.split("\n").forEach { urlList.add(it) }
+            vp2.adapter = MyAdapter(this@MainActivity, urlList)
         }
-        ft.show(currentFragment)
-        ft.commitAllowingStateLoss()
+    }
+
+    private fun getNetworkService(): NetworkService {
+        val okHttpClient = OkHttpClient.Builder().build()
+        val retrofit = Retrofit.Builder()
+            .client(okHttpClient)
+            .baseUrl("https://gitee.com/")
+            .addConverterFactory(ScalarsConverterFactory.create())
+            .build()
+
+        return retrofit.create(NetworkService::class.java)
     }
 }
