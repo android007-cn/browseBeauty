@@ -11,7 +11,8 @@
 2. Coroutines:异步调用
 3. ViewPager2:进行翻页
 4. Glide:显示图片
-5. Room:操作sqlite数据库记录和读取数据
-6. BottomNavigationView: 底部导航栏
-7. Recyclerview:显示列表
-8. PageTransformer: 翻页时增加切换效果
+5. PhotoView:支持手势缩放图片
+6. Room:操作sqLite数据库记录和读取数据
+7. BottomNavigationView: 底部导航栏
+8. Recyclerview:显示列表
+9. PageTransformer: 翻页时增加切换效果

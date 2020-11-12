@@ -1,2 +1,2 @@
-include ':app', ':app2', ':app1',':app11'
+include ':app4', ':app2', ':app1', ':app3'
 rootProject.name = "BrowseBeauty"
