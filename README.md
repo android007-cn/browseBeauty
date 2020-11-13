@@ -4,7 +4,7 @@ An app to browse beauty.
 1. browse images with swipe
 2. support add favorite on images.
 # Screenshot
-![](https://upload-images.jianshu.io/upload_images/6169789-92f41919338116f9.gif?imageMogr2/auto-orient/strip)
+![](https://raw.githubusercontent.com/android007-cn/browseBeauty/master/screenshots/screenshot1.gif)
 # Key Points
 1. Retrofit+okHttp: fetch data from network
 2. Coroutines: make asynchronous operations
