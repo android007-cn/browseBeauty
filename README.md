@@ -5,7 +5,7 @@
 2. 支持收藏图片
 # Screenshot
 ![](https://upload-images.jianshu.io/upload_images/6169789-92f41919338116f9.gif?imageMogr2/auto-orient/strip)
-# 技术点
+# Key Points
 1. Retrofit+okHttp:访问网络接口获取数据
 2. Coroutines:异步调用
 3. ViewPager2:进行翻页
@@ -14,7 +14,7 @@
 6. BottomNavigationView: 底部导航栏
 7. Recyclerview:显示列表
 # License
-Copyright 2020
+Copyright 2020 android007-cn
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
