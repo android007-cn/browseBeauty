@@ -10,7 +10,7 @@
         android:id="@+id/favoriteToolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title="收藏" />
+        app:title="@string/favorite" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/favoriteRv"

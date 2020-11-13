@@ -48,9 +48,9 @@ class MineFragment : Fragment() {
         MainScope().launch {
             val favoriteCount = ImageInfoRepository.list().size
             if (favoriteCount > 0) {
-                favoriteTv.text = "收藏($favoriteCount)"
+                favoriteTv.text = getString(R.string.favorite)+"($favoriteCount)"
             } else {
-                favoriteTv.text = "收藏"
+                favoriteTv.text = getString(R.string.favorite)
             }
         }
     }

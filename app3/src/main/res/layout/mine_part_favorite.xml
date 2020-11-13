@@ -31,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
-                android:text="收藏"
+                android:text="@string/favorite"
                 android:textColor="#18191A" />
 
             <ImageView
