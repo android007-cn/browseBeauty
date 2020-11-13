@@ -1,8 +1,8 @@
 # Introduction
-做一个可以看妹子的App.
+An app to browse beauty.
 # Features
-1. 支持浏览图片,支持上下翻页
-2. 支持收藏图片
+1. browse images with swipe
+2. support add favorite on images.
 # Screenshot
 ![](https://upload-images.jianshu.io/upload_images/6169789-92f41919338116f9.gif?imageMogr2/auto-orient/strip)
 # Key Points
