@@ -1,4 +1,4 @@
-# 简介
+# Introduction
 做一个可以看妹子的App.
 # Features
 1. 支持浏览图片,支持上下翻页
@@ -6,13 +6,13 @@
 # Screenshot
 ![](https://upload-images.jianshu.io/upload_images/6169789-92f41919338116f9.gif?imageMogr2/auto-orient/strip)
 # Key Points
-1. Retrofit+okHttp:访问网络接口获取数据
-2. Coroutines:异步调用
-3. ViewPager2:进行翻页
-4. Glide:显示图片
-5. Room:操作sqLite数据库记录和读取数据
-6. BottomNavigationView: 底部导航栏
-7. Recyclerview:显示列表
+1. Retrofit+okHttp: fetch data from network
+2. Coroutines: make asynchronous operations
+3. ViewPager2: swipe to change page
+4. Glide: show images
+5. Room: read and write on sqLite database
+6. BottomNavigationView: show bottom navigation
+7. Recyclerview: show list
 # License
 Copyright 2020 android007-cn
 
